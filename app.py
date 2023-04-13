@@ -20,7 +20,7 @@ def lyrics():
     if not artist:
         return redirect(url_for('index'))
 
-    # Get a response of the top 5 tracks from artist name - have to pass api key in url: https://api.musixmatch.com/ws/1.1/track.search?apikey=db99b638bd78bbce0ce079aa0a9ee979&q_artist=justin%20bieber 
+    # Get a response of the top 5 tracks from artist name - have to pass api key in url: https://api.musixmatch.com/ws/1.1/track.search?apikey=keygoeshere&q_artist=justin%20bieber 
     uri = "http://api.musixmatch.com/ws/1.1/track.search?apikey=" + str(API_KEY) + "q_artist=" + str(artist) + "&f_has_lyric=1&page_size=5&s_track_rating=asc"
     params = {
         'api_key': API_KEY,
