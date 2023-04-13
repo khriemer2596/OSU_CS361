@@ -12,14 +12,14 @@
     </nav>
     <div align="center" style="padding-top:20px;">
       <h2>Generated New Lyrics for {{ artist }} using Markov Chains!</h3>
-      <h3>
+      <h3 style="background-color: lightblue; width: 500px">
       {% for line in result %}
       {{ line }}<br />
       {% endfor %}
       </h3>
     <br />
     <form action="{{ url_for('home') }}">
-      <input type="submit" value="Do it again!" />
+      <input class="button" type="submit" value="Back to Home" />
     </form>
     </div>
   </body>
