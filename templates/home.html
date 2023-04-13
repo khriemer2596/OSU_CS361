@@ -1,15 +1,27 @@
 <html>
- <body>
-  <form action=""{{ url_for('lyrics') }}"" method="post" class="lyrics">
-    Artist or band name: <input name="artist" type="text" /><br />
-    Number of lines:
-    <select name="lines">
-      {% for n in range(1,11) %}
-        <option value="{{n}}">{{n}}</option>
-      {% endfor %}
-    </select>
-    <br /><br />
-    <input class="button" type="submit" value="Lyrics">
-  </form>
- </body>
+  <head>
+    <title>Lyric Generator</title>
+    <link href="{{ url_for('static', filename='styles.css')}}" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Welcome to Kevin's Lyric Generator</h1>
+    <nav class="nav" align="center">
+      <a href="{{ url_for('home') }}">Home |</a>
+      <a href="{{ url_for('bands') }}">Bands |</a>
+      <a href="{{ url_for('how_it_works') }}">How It Works</a>
+    </nav>
+    <form align="center" action="{{ url_for('lyrics') }}" method="post" class="lyrics" style="padding-top:10px;">
+      Artist or band name: <input name="artist" type="text" id="artist"/><br />
+      Number of lines:
+      <select name="lines" id="lines">
+        {% for n in range(1,11) %}
+          <option value="{{n}}">{{n}}</option>
+        {% endfor %}
+      </select>
+      <br /><br />
+      <input class="button" type="submit" value="Lyrics">
+    </form>
+  </body>
+  <footer style="text-align: center;"> &copy Kevin Riemer 2023</footer> 
+  <footer style="text-align: center"> Lyrics used for generation from MusixMatch are not for commercial use.</footer>
 </html>
