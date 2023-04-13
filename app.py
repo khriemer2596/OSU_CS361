@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, request
 import requests
 import os
-from pymarkovchain import MarkovChain  # can't get markov chain imported
+from pymarkovchain import MarkovChain 
 
 API_KEY = os.environ.get('API_KEY')
 
@@ -22,6 +22,7 @@ def lyrics():
 
     # Get a response of the top 5 tracks from artist name - have to pass api key in url: https://api.musixmatch.com/ws/1.1/track.search?apikey=keygoeshere&q_artist=justin%20bieber 
     uri = "http://api.musixmatch.com/ws/1.1/track.search?apikey=" + str(API_KEY) + "q_artist=" + str(artist) + "&f_has_lyric=1&page_size=5&s_track_rating=asc"
+    print(uri)
     params = {
         'api_key': API_KEY,
         'artist': artist,
@@ -29,7 +30,7 @@ def lyrics():
     response = requests.get(uri, params=params)
     track_list = response.json()
     
-    # Get a response of the lyircs of popular tracks from artist name - not sure if this is working
+    # Get a response of the lyircs of popular tracks from artist name 
     uri_2 = "http://api.musixmatch.com/ws/1.1/track.lyrics.get?apikey=" + str(API_KEY) + "track_id=" + str(track_list)
     params_2 = {
         'api_key': API_KEY,
