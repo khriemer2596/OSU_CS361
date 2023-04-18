@@ -14,7 +14,10 @@
     color: #000;
     background-color: #fff;
   }
-  
+  .artist-table {
+    margin-left: auto;
+    margin-right: auto;
+  }
   a {
     color: #337ab7;
     text-decoration: none;

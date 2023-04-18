@@ -10,7 +10,30 @@
             <a href="{{ url_for('bands') }}">Bands |</a>
             <a href="{{ url_for('how_it_works') }}">How It Works</a>
         </nav>
-        <h3 style="text-align: center;">This page will contain an overview of how this app works.</h3>
+        <h3 style="text-align: center;">This page contains an overview of how this app works.</h3>
+        <p style="text-align: center; margin-left:10em; margin-right:10em;">
+            This app's allows the user to input a musical artist and generate up to 10 lines of lyrics in the style of that artist. 
+            A future update will also allow a random artist to be chosen by the app upon the click of a button. 
+            The idea comes from my love of music and an app that exists already called Lyricize.
+            This app is developed using Python and Flask on the backend, and HTML/CSS on the frontend for styling.
+        </p>
+        <p style="text-align: center; margin-left:10em; margin-right:10em;">
+            In order to actually generate new lyrics for an artist, the app must first analyze existing lyrics from that artist. 
+            So, an API called Musixmatch has been used. This API contains a vast amount of artists, each with many songs associated to them.
+            Each song associated with the artist has lyrics in the API, aside from some exceptions.
+        </p>
+        <p style="text-align: center; margin-left:10em; margin-right:10em;">
+            When a musical artist is passed to the app, it first makes an API call to find the artist, and then it searches for that artist's top 10 songs. 
+            Once it has those top 10 songs, it searches for the lyrics of those songs, and saves them in a list. This list of existing lyrics is then passed to a function in Python that
+            uses Markov Chains. Markov Chains provide a way to generate new sentences (lyrics) based on probabilities from existing sentences. There 
+            is an existing Python library that easily allows a developer to create a Markov Chain. The list of lyrics is passed to the Markov Chain,
+            and the resulting lyrics are generated in the form of a string and broken up by line, according to the amount of lines selected by the user. 
+            The result is then output on the screen on the Lyrics page.
+        </p>
+        <p style="text-align: center; margin-left:10em; margin-right:10em;">
+            The Bands page lets the user generate the top musical artists in a given country, according to MusixMatch API. The app takes the given country code
+            and searches for the top artists in that country that exist in the API. The name of the musical artists are then isolated and dumped into a list,
+            which is then used to dynamically build a table in HTML to display on the page.
     </body>
  <footer style="text-align: center;"> &copy Kevin Riemer 2023</footer>
 </html>

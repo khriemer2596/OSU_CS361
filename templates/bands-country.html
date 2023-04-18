@@ -10,11 +10,20 @@
             <a href="{{ url_for('bands') }}">Bands |</a>
             <a href="{{ url_for('how_it_works') }}">How It Works</a>
         </nav>
-    <h3 style="text-align: center;">This page allows you to choose a country for which to show the top musical artists according to MusixMatch API.</h3>
-    <form align="center" action="{{ url_for('bands_country') }}" method="post" class="bands">
-        Enter First Two Letters of Country: <input name="country" type="text" id="country"/>
-        <input class="button" type="submit" value="Find Top Artists by Country">
-    </form>
+    <h3 style="text-align: center;">This page shows a table with the top musical artists in a given country according to MusixMatch API.</h3>
+    <h2 style="text-align: center;">Generated the top artists from {{country}}:</h2>
+    <table class="artist-table">
+        <thead><tr>
+            <th>Musical Artist Name</th>
+        </tr></thead>
+        <tbody>
+        {% for artist in artist_sample_list %}
+        <tr>
+            <td>{{ artist }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     </body>
     <footer style="text-align: center;"> &copy Kevin Riemer 2023</footer>
 </html>
