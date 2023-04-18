@@ -104,11 +104,15 @@ def bands_country():
     artist_sample = response.json()
     artist_sample_list = []
 
-    length_of_artist_list = len(artist_sample["message"]["body"]["artist_list"])
-    
+    length_of_artist_list = len(
+        artist_sample["message"]["body"]["artist_list"]
+    )
+
     for i in range(0, length_of_artist_list):
         artist_sample_list.append(
-            artist_sample["message"]["body"]["artist_list"][i]["artist"]["artist_name"]
+            artist_sample["message"]["body"]["artist_list"][i]["artist"][
+                "artist_name"
+            ]
         )
 
     return render_template(
