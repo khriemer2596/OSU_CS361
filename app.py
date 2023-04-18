@@ -99,16 +99,16 @@ def bands_country():
         + "&page=1&page_size=100&country="
         + country
     )
-
+    print(uri)
     response = requests.get(uri)
     artist_sample = response.json()
     artist_sample_list = []
 
-    for i in range(0, 77):
+    length_of_artist_list = len(artist_sample["message"]["body"]["artist_list"])
+    
+    for i in range(0, length_of_artist_list):
         artist_sample_list.append(
-            artist_sample["message"]["body"]["artist_list"][i]["artist"][
-                "artist_name"
-            ]
+            artist_sample["message"]["body"]["artist_list"][i]["artist"]["artist_name"]
         )
 
     return render_template(
