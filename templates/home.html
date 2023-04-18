@@ -10,7 +10,8 @@
       <a href="{{ url_for('bands') }}">Bands |</a>
       <a href="{{ url_for('how_it_works') }}">How It Works</a>
     </nav>
-    <h4 style="text-align: center;"> On this page, you can generate up to 10 lines of new lyrics for a musical artist of your choice.</h4>
+    <h4 style="text-align: center; margin-left:15em; margin-right:15em;"> On this page, you can generate up to 10 lines of new lyrics for a musical artist of your choice. 
+      Alternatively, you can navigate to the Bands page if you need ideas of artists to generate lyrics for.</h4>
     <form align="center" action="{{ url_for('lyrics') }}" method="post" class="lyrics">
       Enter Musical Artist Name: <input name="artist" type="text" id="artist"/><br />
       Number of Lines to Generate:
