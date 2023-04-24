@@ -50,12 +50,22 @@ def lyrics():
     for i in range(
         0, number_of_tracks
     ):  # build list of top 10 track IDs for the artist
-        track_list_id.append(
+        if (
             track_info["message"]["body"]["track_list"][i]["track"]["track_id"]
-        )
+            == 250260517
+        ):  # handling Halsey's missing track
+            continue
+        else:
+            track_list_id.append(
+                track_info["message"]["body"]["track_list"][i]["track"][
+                    "track_id"
+                ]
+            )
     # Get a response of the lyrics of the tracks in track_list_id using
     # musixmatch module
     lyric_list = []
+    print(track_list_id)
+    print(musixmatch.track_get(250260517))
     for track_id in track_list_id:  # iterate through track_list_id
         lyric_body = musixmatch.track_lyrics_get(
             track_id
