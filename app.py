@@ -8,6 +8,7 @@ import requests
 import os
 from pymarkovchain import MarkovChain
 from musixmatch import Musixmatch
+from bs4 import BeautifulSoup
 
 API_KEY = os.environ.get("API_KEY")
 
@@ -20,6 +21,29 @@ app.debug = True
 @app.route("/", methods=["GET"])  # route for home page
 def home():
     return render_template("home.html")
+
+
+@app.route("/microservice", methods=["POST"]) 
+# microservice that my partner will call remotely
+def microservice():
+    # random wiki search using Special:Random to make sure topic exists
+    wiki_url = requests.get("https://en.wikipedia.org/wiki/Special:Random")
+    soup = BeautifulSoup(wiki_url.content, "html.parser")
+    # extract title from random wiki page
+    title = soup.find(class_="firstHeading").text
+
+    url = "https://en.wikipedia.org/w/api.php"  # api link for json extraction
+    url_list = []  # initialize list which will be sent at the end
+
+    while len(url_list) < 5:
+        params = {"action": "parse", "page": title, "format": "json"}
+        req = requests.Session()
+        res = req.get(url=url, params=params)
+        data = res.json()
+        url_list.append(data)
+
+    p = requests.post('DESTINATION URL GOES HERE', json=url_list)
+    print(f"Status Code: {p.status_code}")
 
 
 @app.route("/lyrics", methods=["POST"])  # route for lyrics page
