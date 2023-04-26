@@ -23,10 +23,13 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/microservice", methods=["POST"]) 
-# microservice that my partner will call remotely
+@app.route("/microservice", methods=["POST"])
+# microservice that my partner will call remotely - doesn't have an html page
+# because there's no need to interact with it on my app.
+# It is called via the url
 def microservice():
     # random wiki search using Special:Random to make sure topic exists
+    print("Request Received")
     wiki_url = requests.get("https://en.wikipedia.org/wiki/Special:Random")
     soup = BeautifulSoup(wiki_url.content, "html.parser")
     # extract title from random wiki page
@@ -42,8 +45,11 @@ def microservice():
         data = res.json()
         url_list.append(data)
 
-    p = requests.post('DESTINATION URL GOES HERE', json=url_list)
+    p = requests.post(url='http://localhost:3000/', json=url_list)
     print(f"Status Code: {p.status_code}")
+    if p.status_code == 200:
+        print("Successfully Sent Response")
+    return url_list
 
 
 @app.route("/lyrics", methods=["POST"])  # route for lyrics page
@@ -88,8 +94,6 @@ def lyrics():
     # Get a response of the lyrics of the tracks in track_list_id using
     # musixmatch module
     lyric_list = []
-    print(track_list_id)
-    print(musixmatch.track_get(250260517))
     for track_id in track_list_id:  # iterate through track_list_id
         lyric_body = musixmatch.track_lyrics_get(
             track_id
@@ -162,4 +166,4 @@ def how_it_works():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="localhost", port=5000, debug=True)
