@@ -6,6 +6,8 @@
 from flask import Flask, render_template, url_for, redirect, request
 import requests
 import os
+import urllib.request
+import json
 from pymarkovchain import MarkovChain
 from musixmatch import Musixmatch
 from bs4 import BeautifulSoup
@@ -121,6 +123,18 @@ def lyrics():
         result.append(mc.generateString())
 
     return render_template("lyrics.html", result=result, artist=artist)
+
+
+@app.route("/random-artist", methods=["POST"])  # route for random-artist page
+def random_artist():
+    url = 'http://localhost:4000/random_artist'  # url here to be replaced by
+    # external URL once deployed
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    random_artist_data = json.loads(data)
+    artist = random_artist_data["message"]["body"]["artist"]["artist_name"]
+    print(artist)
+    return render_template("random-artist.html", artist=artist)
 
 
 @app.route("/bands", methods=["GET"])  # route for bands page

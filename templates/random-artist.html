@@ -16,7 +16,7 @@
         You can click <input class="button" type="submit" value="Here" id="random"><br /> to pick a random musical artist.
       </form>
       <form align="center" action="{{ url_for('lyrics') }}" method="post" class="lyrics">
-      Or Enter Musical Artist Name: <input name="artist" type="text" id="artist"/><br />
+      Selected Musical Artist Name: <input name="artist" type="text" value={{artist}} id="artist"/><br />
       Number of Lines to Generate:
       <select name="lines" id="lines">
         {% for n in range(1,11) %}
