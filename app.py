@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # Sources:
 # Musixmatch API: https://developer.musixmatch.com/documentation
 # Musixmatch API integration with Python:
