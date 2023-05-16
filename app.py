@@ -22,7 +22,7 @@ app.debug = True
 
 @app.route("/", methods=["GET"])  # route for home page
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 
 
 @app.route("/microservice", methods=["POST"])
