@@ -31,7 +31,6 @@ def home():
 # It is called via the url
 def microservice():
     # random wiki search using Special:Random to make sure topic exists
-    print("Request Received")
     wiki_url = requests.get("https://en.wikipedia.org/wiki/Special:Random")
     soup = BeautifulSoup(wiki_url.content, "html.parser")
     # extract title from random wiki page
@@ -47,10 +46,6 @@ def microservice():
         data = res.json()
         url_list.append(data)
 
-    p = requests.post(url='http://localhost:3000/', json=url_list)
-    print(f"Status Code: {p.status_code}")
-    if p.status_code == 200:
-        print("Successfully Sent Response")
     return url_list
 
 
