@@ -31,16 +31,9 @@
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
   }
-  /* Think underline variant for inline-block link:
-      display: inline-block;
-      border-bottom: 1px solid;
-      line-height: 90%; */
-  /* Thin underline variant for inline with 1 square px image:
-      background: url('one_px_428bca.png') repeat-x left 1.26em; */
   .button {
     transition-duration: 0.3s;
   }
-
   .button:hover {
     background-color: black;
     color: white;

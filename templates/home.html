@@ -11,7 +11,8 @@
       <a href="{{ url_for('how_it_works') }}">How It Works</a>
     </nav>
     <h4 style="text-align: center; margin-left:15em; margin-right:15em;"> On this page, you can generate up to 10 lines of new lyrics for a musical artist of your choice. 
-      Alternatively, you can navigate to the Bands page if you need ideas of artists to generate lyrics for (this will take a couple extra steps).</h4>
+      Alternatively, you can navigate to the Bands page if you need ideas of artists to generate lyrics for (this will take a couple extra steps).
+    </h4>
       <form align="center" action="{{ url_for('random_artist') }}" method="post" class="random">
         You can click <input class="button" type="submit" value="Here" id="random"><br /> to pick a random musical artist.
       </form>
@@ -25,7 +26,7 @@
       </select>
       <br /><br />
       <input class="button" type="submit" value="Generate">
-    </form>
+      </form>
   </body>
   <footer style="text-align: center;"> &copy Kevin Riemer 2023</footer> 
   <footer style="text-align: center"> Lyrics used for generation from MusixMatch API are not for commercial use.</footer>

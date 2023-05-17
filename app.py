@@ -26,9 +26,7 @@ def home():
 
 
 @app.route("/microservice", methods=["POST"])
-# microservice that my partner will call remotely - doesn't have an html page
-# because there's no need to interact with it on my app.
-# It is called via the url
+# microservice that my partner will call remotely
 def microservice():
     # random wiki search using Special:Random to make sure topic exists
     wiki_url = requests.get("https://en.wikipedia.org/wiki/Special:Random")
@@ -122,13 +120,13 @@ def lyrics():
 
 @app.route("/random-artist", methods=["POST"])  # route for random-artist page
 def random_artist():
+    # function to call my partner's microservice
     url = 'http://localhost:4000/random_artist'  # url here to be replaced by
     # external URL once deployed
     response = urllib.request.urlopen(url)
     data = response.read()
     random_artist_data = json.loads(data)
     artist = random_artist_data["message"]["body"]["artist"]["artist_name"]
-    print(artist)
     return render_template("random-artist.html", artist=artist)
 
 
@@ -146,7 +144,7 @@ def bands_country():
         + "&page=1&page_size=100&country="
         + country
     )
-    print(uri)
+
     response = requests.get(uri)
     artist_sample = response.json()
     artist_sample_list = []
