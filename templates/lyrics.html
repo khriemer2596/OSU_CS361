@@ -18,6 +18,10 @@
       {% endfor %}
       </h3>
     <br />
+    <form action="mailto:abc@example.com">
+      <input class="button" type="submit" onclick="window.print();return false" value="Print These Lyrics" />
+      <input class="button" type="submit" onclick="mailto:abc@example.com" value="Email These Lyrics" />
+    </form>
     <form action="{{ url_for('home') }}">
       <input class="button" type="submit" value="Back to Home" />
     </form>
