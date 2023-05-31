@@ -20,7 +20,7 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route("/", methods=["GET"])  # route for home page
+@app.route("/", methods=["GET"])
 def home():
     return render_template("home.html")
 
@@ -47,7 +47,7 @@ def microservice():
     return url_list
 
 
-@app.route("/lyrics", methods=["POST"])  # route for lyrics page
+@app.route("/lyrics", methods=["POST"])
 def lyrics():
     artist = request.form["artist"]
     lines = int(request.form["lines"])
@@ -60,6 +60,7 @@ def lyrics():
 
     # Get a response of the top 10 tracks using artist name, sorted in
     # descending order
+
     uri = (
         "http://api.musixmatch.com/ws/1.1/track.search?apikey="
         + str(API_KEY)
@@ -78,7 +79,7 @@ def lyrics():
         if (
             track_info["message"]["body"]["track_list"][i]["track"]["track_id"]
             == 250260517
-        ):  # handling Halsey's missing track
+        ):  # handling Halsey's missing track - edge case
             continue
         else:
             track_list_id.append(
@@ -86,10 +87,12 @@ def lyrics():
                     "track_id"
                 ]
             )
+
     # Get a response of the lyrics of the tracks in track_list_id using
     # musixmatch module
+
     lyric_list = []
-    for track_id in track_list_id:  # iterate through track_list_id
+    for track_id in track_list_id:
         lyric_body = musixmatch.track_lyrics_get(
             track_id
         )  # use musixmatch module
@@ -100,13 +103,13 @@ def lyrics():
 
     # Parse lyric list into a string of lyrics
     lyrics = ""
-    for lyric in lyric_list:
+    for lyric in lyric_list:  # remove unwanted sentence so MarkovChain doesn't get thrown off
         lyric_snip = lyric.removesuffix(
             "\n...\n\n******* This Lyrics is NOT for Commercial use *******\n(1409623310964)"
         )
         lyrics += lyric_snip
 
-    # Use Markov Chain
+    # Use Markov Chain to generate lyrics
     mc = MarkovChain()
     mc.generateDatabase(lyrics)
 
@@ -118,7 +121,7 @@ def lyrics():
     return render_template("lyrics.html", result=result, artist=artist)
 
 
-@app.route("/random-artist", methods=["POST"])  # route for random-artist page
+@app.route("/random-artist", methods=["POST"])
 def random_artist():
     # function to call my partner's microservice
     url = 'http://localhost:4000/random_artist'  # url here to be replaced by
@@ -130,14 +133,14 @@ def random_artist():
     return render_template("random-artist.html", artist=artist)
 
 
-@app.route("/bands", methods=["GET"])  # route for bands page
+@app.route("/bands", methods=["GET"])
 def bands():
     return render_template("bands.html")
 
 
-@app.route("/bands-country", methods=["POST"])  # route for bands-country page
+@app.route("/bands-country", methods=["POST"])
 def bands_country():
-    country = request.form["country"]
+    country = request.form["country"]  # Get country code from frontend page
     uri = (
         "https://api.musixmatch.com/ws/1.1/chart.artists.get?apikey="
         + str(API_KEY)
@@ -145,7 +148,7 @@ def bands_country():
         + country
     )
 
-    response = requests.get(uri)
+    response = requests.get(uri)  # Call MusixMatch API
     artist_sample = response.json()
     artist_sample_list = []
 
@@ -153,7 +156,7 @@ def bands_country():
         artist_sample["message"]["body"]["artist_list"]
     )
 
-    for i in range(0, length_of_artist_list):
+    for i in range(0, length_of_artist_list):  # Create list of top artists in the country
         artist_sample_list.append(
             artist_sample["message"]["body"]["artist_list"][i]["artist"][
                 "artist_name"
@@ -167,7 +170,7 @@ def bands_country():
     )
 
 
-@app.route("/how_it_works", methods=["GET"])  # route for how_it_works page
+@app.route("/how_it_works", methods=["GET"])
 def how_it_works():
     return render_template("how_it_works.html")
 
